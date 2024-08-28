@@ -7,12 +7,13 @@ import {
   Patch,
   Delete,
   Query,
-} from "@nestjs/common";
+} from '@nestjs/common';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
-import { PaginationQueryDto } from "../common/dto/pagination-query.dto";
-import { Public } from "../common/decorators/public.decorator";
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { Public } from '../common/decorators/public.decorator';
+import { ParseIntPipe } from "../common/pipes/parse-int/parse-int.pipe";
 
 @Controller('coffees')
 export class CoffeesController {
@@ -20,13 +21,12 @@ export class CoffeesController {
 
   @Public()
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
-    //const { limit, offset } = paginationQuery;
+  async findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.coffeeService.findAll(paginationQuery);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.coffeeService.findOne('' + id);
   }
 
