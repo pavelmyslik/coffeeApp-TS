@@ -26,9 +26,7 @@ export class CoffeesService {
     private readonly dataSource: DataSource,
     @Inject(coffessConfig.KEY)
     private readonly coffeesConfig: ConfigType<typeof coffessConfig>,
-  ) {
-    console.log(coffeesConfig.foo);
-  }
+  ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
